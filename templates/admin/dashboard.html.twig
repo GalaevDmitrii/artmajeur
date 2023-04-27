@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dashboard
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<h1>Dashboard</h1>
+				<form method="post" action="{{ path('app_logout') }}">
+
+					<button type="submit" class="btn btn-primary">Logout</button>
+				</form>
+			</div>
+		</div>
+
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Email</th>
+					<th>Date</th>
+					<th>Demand</th>
+					<th>Status</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+
+				{% for email, demands in groupedDemands %}
+					{% for demand in demands %}
+						{% set statusClass = demand.status == 'New' ? 'table-success' : '' %}
+						<tr class="{{ statusClass }}">
+							{% if loop.first %}
+								<td rowspan="{{ demands|length }}">{{ email }}</td>
+							{% endif %}
+							<td>{{ demand.date|date('Y-m-d') }}</td>
+							<td>
+								<div class="form-check">
+									<ul>
+										{% for item in demand.demand %}
+											<li>{{ item }}</li>
+										{% endfor %}
+									</ul>
+								</div>
+							</td>
+							<td>{{ demand.status }}</td>
+							<td>
+								{% if demand.status == 'New' %}
+									<form method="post" action="{{ path('update_demand_status', {'id': demand.id}) }}">
+										<input type="hidden" name="_method" value="PUT">
+										<button type="submit" class="btn btn-primary">Mark as answered</button>
+									</form>
+								{% endif %}
+							</td>
+						</tr>
+					{% endfor %}
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+{% endblock %}

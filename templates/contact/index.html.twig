@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ContactController!
+{% endblock %}
+
+{% block body %}
+	<style>
+		.example-wrapper {
+			margin: 1em auto;
+			max-width: 800px;
+			width: 95%;
+			font: 18px / 1.5 sans-serif;
+		}
+		.example-wrapper code {
+			background: #F5F5F5;
+			padding: 2px 6px;
+		}
+	</style>
+
+	{% if successMessage is not null %}
+
+		<div class="container mt-5">
+			<div class="row justify-content-center">
+				<div class="col-md-6">
+					<div class="alert alert-success" role="alert">
+						{{ successMessage }}
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+	{% else %}
+		<div class="container mt-5">
+			<div class="row justify-content-center">
+				<div class="col-md-6">
+					<h1 class="mb-5">Contact form</h1>
+					{{ form_start(form) }}
+					<div class="form-group">
+						{{ form_label(form.name, 'Name', {'label_attr': {'class': 'font-weight-bold'}}) }}
+						{{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+					</div>
+					<div class="form-group">
+						{{ form_label(form.email, 'Email', {'label_attr': {'class': 'font-weight-bold'}}) }}
+						{{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+					</div>
+					<div class="form-group">
+						{{ form_label(form.question, 'Question', {'label_attr': {'class': 'font-weight-bold'}}) }}
+						{{ form_widget(form.question, {'attr': {'class': 'form-control', 'rows': 5}}) }}
+					</div>
+					{{ form_widget(form.submit, {'attr': {'class': 'btn btn-primary btn-block'}}) }}
+					{{ form_end(form) }}
+				</div>
+			</div>
+		</div>
+	{% endif %}
+{% endblock %}

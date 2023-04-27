@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello LoginController!
+{% endblock %}
+
+{% block body %}
+	<div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+		<div class="card login-card p-3 p-xl-4">
+			<div class="card-body text-center">
+
+				<h1 class="mb-3">Login Form</h1>
+				<form action="{{ path('app_login') }}" method="post">
+					<div class="form-group">
+						<label for="username">Username:</label>
+						<input type="text" id="username" name="_username" class="form-control">
+					</div>
+					<div class="form-group">
+						<label for="password">Password:</label>
+						<input type="password" id="password" name="_password" class="form-control">
+					</div>
+					{# If you want to control the URL the user is redirected to on success #}
+					<input type="hidden" name="_target_path" value="/dashboard">
+					<button class="btn btn-primary btn-block mt-4" type="submit">Log In</button>
+				</form>
+			</div>
+		</div>
+	</div>
+{% endblock %}
